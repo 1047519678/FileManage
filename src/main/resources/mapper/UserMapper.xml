@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mvc.dao.UserDao">
+    <resultMap id="VendorMap" type="cn.mvc.pojo.User">
+        <result column="username" property="userId"/>
+        <result column="fullname" property="factory"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
+    <select id="login" resultType="User">
+        select TOP(1) id,userId,userName,password,department,phone,email,state,factory,create_date
+        from user_account where userId = #{userId}
+    </select>
+
+    <select id="vendorLogin" resultMap="VendorMap">
+        select TOP(1) username,fullname,password,email
+        from b2b_user where username = #{userId}
+    </select>
+
+    <select id="getUser" resultType="user_account">
+        select  userId ,userName,department,factory,id,phone,email,state from user_account where factory=#{factory}
+        <if test="userId!=''">
+            and userId=#{userId}
+        </if>
+        <if test="userName!=''">
+            and userName=#{userName}
+        </if>
+
+    </select>
+
+    <insert id="addUserFileType">
+        insert into fileType_user (userId,typeNo,create_date)values(#{userId},#{typeNo},#{create_date})
+    </insert>
+
+    <insert id="instUserInfo" parameterType="user_account">
+        insert into user_account (userId,userName,password,department,phone,email,state,factory,create_date)values(#{userId},#{userName},#{password},#{department},#{phone},#{email},#{state},#{factory},#{create_date})
+    </insert>
+    <update id="upUserInfo">
+        update user_account set userName=#{userName},department=#{department},phone=#{phone},email=#{email},state=#{state} where userId=#{userId} and factory=#{factory}
+    </update>
+
+    <insert id="inPermission" parameterType="user_permission">
+        insert into user_permission(no,name,remark,create_date) values (#{no},#{name},#{remark},#{create_date})
+    </insert>
+
+    <update id="upPermission" parameterType="user_permission">
+         update user_permission set name=#{name},remark=#{remark} where no=#{no}
+    </update>
+
+    <insert id="addUserPermission">
+        insert into user_permission_relation (userId,permission,create_date) values(#{userId},#{permission},#{create_date})
+    </insert>
+
+    <update id="upPwd">
+        update user_account set password=#{pwd} where userId=#{userId} and factory=#{factory}
+    </update>
+
+</mapper>

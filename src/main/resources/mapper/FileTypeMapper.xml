@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mvc.dao.FileTypeDao">
+
+    <resultMap id="DeliveryMap" type="cn.mvc.pojo.Delivery">
+        <result column="LIFNR" property="userId"/>
+        <result column="MATNR" property="partNo"/>
+    </resultMap>
+
+    <update id="updateTypeNo" parameterType="FileTypeUser">
+        update fileType_user set typeNo = #{typeNo} where userId = #{userId}
+    </update>
+    <select id="selectTypeNo" resultType="FileTypeUser">
+        select typeNo from fileType_user where userId = #{userId}
+    </select>
+    <insert id="insertTypeNo" parameterType="FileTypeUser">
+        insert into fileType_user(userId,typeNo,create_date) values(N'${userId}',N'${typeNo}',GETDATE())
+    </insert>
+    <select id="typeNoList" resultType="FileType">
+        select typeNo,typeName from fileType
+    </select>
+    <select id="qcTypeNoList" resultType="FileType">
+        select typeNo,typeName from fileType where typeNo IN (SELECT typeNo FROM fileType_user WHERE userId=#{userId})
+    </select>
+    <select id="partNoList" resultMap="DeliveryMap">
+        select distinct LIFNR,MATNR from delivery where LIFNR = #{userId}
+    </select>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mvc.dao.FileDataDao">
+    <insert id="insertFile" parameterType="FileData">
+        INSERT INTO fileData(account,vendor,factory,species,partNo,status,times,shipTime,fileName,description,uploadTime)
+        VALUES(N'${account}',N'${vendor}',N'${factory}',N'${species}',N'${partNo}',N'${status}',N'${times}',N'${shipTime}',N'${fileName}',N'${description}',GETDATE())
+    </insert>
+
+    <select id="selectFileByUser" resultType="FileData">
+        SELECT fileDataId,factory,partNo,vendor,species,account,fileName,status,times,description,shipTime,uploadTime,updateTime
+        FROM fileData WHERE account=#{account} order by uploadTime desc
+    </select>
+
+    <select id="checkUpload" resultType="int">
+        SELECT COUNT(1) FROM fileData WHERE species=#{species} AND factory=#{factory} AND fileName=#{fileName}
+    </select>
+
+    <select id="selectFileByStatus" resultType="FileData">
+        SELECT fileDataId,factory,partNo,vendor,species,account,fileName,status,times,description,shipTime,uploadTime,updateTime
+        FROM fileData WHERE  factory=#{factory} AND species IN (SELECT typeNo FROM fileType_user WHERE userId=#{userId})
+        <if test="status==0">
+            and  status=#{status}
+        </if>
+        <if test="status>0">
+            and  status>0
+        </if>
+        order by uploadTime desc
+    </select>
+
+    <update id="updateFileStatus" parameterType="FileData">
+        UPDATE fileData SET status = #{status},qcUser = N'${qcUser}',updateTime = GETDATE() WHERE fileDataId = #{fileDataId}
+    </update>
+
+    <select id="selectCountByDay" resultType="int">
+        SELECT COUNT(1) FROM fileData WHERE uploadTime>=#{uploadTime} AND partNo=#{partNo} AND factory=#{factory} AND account=#{account}
+    </select>
+
+    <select id="accountList" resultType="Map">
+        SELECT distinct account,vendor FROM fileData WHERE species=#{species}
+    </select>
+    <select id="accountList2" resultType="Map">
+        SELECT distinct account,vendor FROM fileData WHERE species IN (SELECT typeNo FROM fileType_user WHERE userId=#{userId})
+    </select>
+
+    <select id="queryDataBySel" resultType="FileData">
+        SELECT fileDataId,factory,partNo,vendor,species,account,fileName,status,times,description,shipTime,uploadTime,updateTime
+        FROM fileData WHERE uploadTime BETWEEN #{startTime} AND #{endTime}
+        AND species IN (SELECT typeNo FROM fileType_user WHERE userId=#{userId})
+        AND factory=#{factory}
+        <if test="vendor!=null and vendor!=''">
+            AND account=#{vendor}
+        </if>
+        <if test="species!=null and species!=''">
+            AND species=#{species}
+        </if>
+        <if test="partNo!=null and partNo!=''">
+            AND partNo LIKE '%${partNo}%'
+        </if>
+        <if test="status!=null and status!=''">
+            AND status=#{status}
+        </if>
+        order by uploadTime desc
+    </select>
+
+    <select id="queryDataByUserSel" resultType="FileData">
+        SELECT fileDataId,factory,partNo,vendor,species,account,fileName,status,times,description,shipTime,uploadTime,updateTime
+        FROM fileData WHERE shipTime>=#{shipTime} AND account=#{account}
+        <if test="factory!=null and factory!=''">
+            AND factory=#{factory}
+        </if>
+        <if test="partNo!=null and partNo!=''">
+            AND partNo LIKE '%${partNo}%'
+        </if>
+        order by uploadTime desc
+    </select>
+</mapper>

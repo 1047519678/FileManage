@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mvc.dao.ExcelDao">
+
+    <select id="selDataInfo" parameterType="map" statementType="CALLABLE" resultType="java.util.LinkedHashMap">
+	{call ExcelDataByDay(
+	#{line,jdbcType=VARCHAR,mode=IN},
+	#{startDateTime,jdbcType=VARCHAR,mode=IN},
+	#{endDateTime,jdbcType=VARCHAR,mode=IN}
+	)}
+    </select>
+	<insert id="addData" parameterType="cn.mvc.pojo.Test">
+		insert into emesc.ph_part_attach(lot_no,po_no,item_no,part_no,self_sn,incoming_qty,datecode)
+		values(#{lotNo},#{poNo},#{itemNo},#{partNo},#{selfSn},#{incomingQty},#{dateCode})
+	</insert>
+	<select id="selData" parameterType="cn.mvc.pojo.Test" resultType="int">
+		select count(1) from emesc.ph_part_attach where self_sn = #{selfSn}
+	</select>
+
+</mapper>
