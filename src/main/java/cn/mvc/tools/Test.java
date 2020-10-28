@@ -18,9 +18,9 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) {
-        //interfaceUtil("http://gc.ditu.aliyun.com/geocoding?a=兰州市", "");
-        Map<String,String> params = new HashMap<>();
-        HttpClientUtil.doPost("",params);
+        //interfaceUtil("", "");
+        //Map<String,String> params = new HashMap<>();
+        //HttpClientUtil.doPost("",params);
     }
 
     public static void interfaceUtil(String path,String data) {
