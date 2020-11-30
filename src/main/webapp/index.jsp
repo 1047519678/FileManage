@@ -15,10 +15,15 @@
 <body>
 <h2>Hello</h2>
 <a href="<%=basePath%>user/userLogin">登录</a>
+<a href="<%=basePath%>pages/Login.html">登录2</a>
+<button onclick="ss()">全局方法测试</button>
 <script type="text/javascript" src="<%=basePath%>js/L2Dwidget.0.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/L2Dwidget.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
 <script type="text/javascript">
+    window.ss=function(){
+        alert("ss");
+    };
     L2Dwidget.init({"display": {
             "superSample": 2,
             "width": 200,
