@@ -28,7 +28,8 @@
 <body>
 <div style="flex: 1;padding: 10px">
     <%-- 文件上传 form --%>
-    <form class="layui-form layui-form-pane" lay-filter="form1" method="post" target="_blank" action="<%=basePath%>file/pdfWatermark"
+    <form class="layui-form layui-form-pane" lay-filter="form1" method="post" target="_blank"
+          action="<%=basePath%>file/pdfWatermark"
           name="form1" id="form1" enctype="multipart/form-data" style="width: 580px;">
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">水印文字</label>
