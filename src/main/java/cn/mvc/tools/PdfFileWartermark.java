@@ -3,7 +3,6 @@ package cn.mvc.tools;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileOutputStream;

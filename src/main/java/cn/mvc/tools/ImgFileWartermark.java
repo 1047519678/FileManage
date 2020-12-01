@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.*;
 
-public class ImgFilePWartermark {
+public class ImgFileWartermark {
     // 水印透明度
     private static float alpha = 0.6f;
     // 水印文字大小
