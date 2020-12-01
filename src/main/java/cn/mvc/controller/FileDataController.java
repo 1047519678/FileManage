@@ -9,6 +9,7 @@ import cn.mvc.service.FileTypeService;
 import cn.mvc.service.UserService;
 import cn.mvc.tools.GetAutoCode;
 import cn.mvc.tools.GetPageList;
+import cn.mvc.tools.PdfFilePWartermark;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,6 +82,11 @@ public class FileDataController {
         model.addAttribute("partList",partList);
         model.addAttribute("typeNo",typeNo);
         return "file/uploadFile";
+    }
+
+    @RequestMapping("/jumpPdfWatermark")
+    public String jumpPdfWatermark(HttpServletRequest request) {
+        return "file/pdfWatermark";
     }
 
     /******** layui重写start ********/
@@ -238,5 +246,50 @@ public class FileDataController {
     }
 
     /******** layui重写end ********/
-
+    @RequestMapping("/pdfWatermark")
+    public void pdfWatermark(int fontSize,int rotation,String watermarkName, MultipartFile uploadFile, HttpServletResponse response) throws IOException {
+        OutputStream out = null;
+        BufferedInputStream br = null;
+        File tempFile = null;
+        File okFile = null;
+        System.out.println();
+        String uploadTemp = "D:\\temp\\uploadTemp.pdf";
+        String okTemp = "D:\\temp\\" + uploadFile.getOriginalFilename();
+        try {
+            tempFile = new File(uploadTemp);
+            if (!tempFile.exists()) {
+                tempFile.mkdirs();
+            }
+            uploadFile.transferTo(tempFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PdfFilePWartermark.waterMark(fontSize,rotation,uploadTemp,okTemp,watermarkName);
+        try {
+            okFile = new File(okTemp);
+            if (!okFile.exists()) {
+                response.sendError(404, "File not found!");
+                return;
+            }
+            br = new BufferedInputStream(new FileInputStream(okFile));
+            byte[] bs = new byte[1024];
+            int len = 0;
+            response.reset();
+            URL u = new URL("file:///" + okTemp);
+            response.setContentType(u.openConnection().getContentType());
+            response.setHeader("Content-Disposition", "attachment;filename="
+                    + URLEncoder.encode(okFile.getName(), "UTF-8"));
+            out = response.getOutputStream();
+            while ((len = br.read(bs)) > 0) {
+                out.write(bs, 0, len);
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            out.flush();
+            out.close();
+            br.close();
+            tempFile.delete();
+        }
+    }
 }
