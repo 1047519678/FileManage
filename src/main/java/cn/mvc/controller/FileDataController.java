@@ -7,9 +7,8 @@ import cn.mvc.pojo.FileTypeUser;
 import cn.mvc.service.FileDataService;
 import cn.mvc.service.FileTypeService;
 import cn.mvc.service.UserService;
-import cn.mvc.tools.GetAutoCode;
 import cn.mvc.tools.GetPageList;
-import cn.mvc.tools.PdfFilePWartermark;
+import cn.mvc.tools.PdfFileWartermark;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -264,7 +261,7 @@ public class FileDataController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        PdfFilePWartermark.waterMark(fontSize,rotation,uploadTemp,okTemp,watermarkName);
+        PdfFileWartermark.waterMark(fontSize,rotation,uploadTemp,okTemp,watermarkName);
         try {
             okFile = new File(okTemp);
             if (!okFile.exists()) {

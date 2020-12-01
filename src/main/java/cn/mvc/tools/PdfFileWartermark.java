@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileOutputStream;
 
-public class PdfFilePWartermark {
+public class PdfFileWartermark {
     public static void main(String[] args) {
         waterMark(15, 45, "D://Downloads//各廠區停車識別證.pdf", "D://Downloads//各廠區停車識別證1.pdf", "PHIHONG");
     }
