@@ -37,7 +37,7 @@ public class ServletTest extends HttpServlet {
         dataList.add(passWord);
         json.put("code", 1);
         json.put("msg", "API TEST！");
-        json.put("count", "API TEST！");
+        json.put("count", dataList.size());
         json.put("data", dataList);
         response.getWriter().println(json);
     }
@@ -56,7 +56,7 @@ public class ServletTest extends HttpServlet {
         dataList.add(passWord);
         json.put("code", 1);
         json.put("msg", "API TEST！");
-        json.put("count", "API TEST！");
+        json.put("count", dataList.size());
         json.put("data", dataList);
         response.getWriter().println(json);
     }
