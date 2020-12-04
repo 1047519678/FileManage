@@ -32,7 +32,7 @@ public class HttpClientUtil {
      */
     public static String doGet(String url, Map<String, String> param) {
         // 创建Httpclient对象
-        CloseableHttpClient httpclient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
         String resultString = "";
         CloseableHttpResponse response = null;
         try {
@@ -47,7 +47,7 @@ public class HttpClientUtil {
             // 创建http GET请求
             HttpGet httpGet = new HttpGet(uri);
             // 执行请求
-            response = httpclient.execute(httpGet);
+            response = httpClient.execute(httpGet);
             // 判断返回状态是否为200
             if (response.getStatusLine().getStatusCode() == 200) {
                 resultString = EntityUtils.toString(response.getEntity(), "UTF-8");
@@ -59,7 +59,7 @@ public class HttpClientUtil {
                 if (response != null) {
                     response.close();
                 }
-                httpclient.close();
+                httpClient.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

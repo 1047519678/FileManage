@@ -57,6 +57,14 @@
     <filter-name>shiroFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>-->
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>cn.mvc.tools.ServletTest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/hello1</url-pattern>
+  </servlet-mapping>
 
   <!-- 配置springMVC需要加载的配置文件
     spring-dao.xml,spring-service.xml,spring-mvc.xml
