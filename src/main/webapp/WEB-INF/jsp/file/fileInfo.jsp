@@ -444,6 +444,7 @@
         form.on('select(species)', function(data){
             //清空原有select内的数据  只保留第一项
             $("#sel1").find("option:not(:first)").remove();
+            //document.getElementById("sel1").options.length = 1;
             form.render('select', 'vendor');//渲染表单
             $.ajax({
                 url:'<%=basePath%>file/getVendorList',
