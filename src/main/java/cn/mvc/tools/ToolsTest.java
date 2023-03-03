@@ -141,7 +141,7 @@ public class ToolsTest {
         }*/
 
         // runnable接口示例。
-        /*TicketThread tt = new TicketThread();
+        TicketThread tt = new TicketThread();
         Thread t1 = new Thread(tt, "窗口一");
         Thread t2 = new Thread(tt, "窗口二");
         Thread t3 = new Thread(tt, "窗口三");
@@ -149,7 +149,7 @@ public class ToolsTest {
         t1.start();
         t2.start();
         t3.start();
-        t4.start();*/
+        t4.start();
 
         // 获取数组最大值连续出现的次数示例。
         /*int[] a = {9,3,11,14,14,14,12,14,14,7,0,0,0,6,13,14,14,14,14,14,14,14,14,14,14,10,14,0,14,14,0,14,0,0,11,14,13,13,14,13,14,14,11,13,0,5,9,11,11,14,13,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -223,7 +223,7 @@ public class ToolsTest {
         System.out.println("end：测试2");*/
     }
 
-    //@Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0/10 * * * * ?")
     public void run_test() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Workbook workbook = null;
@@ -232,13 +232,14 @@ public class ToolsTest {
         calendar.setTime(new Date());
         //calendar.setTime(sdf.parse("2020-07-24"));
         String endTime = sdf.format(calendar.getTime());
+        String fileName = null;
         int monthDay = calendar.get(Calendar.DAY_OF_MONTH);
         for (int j = monthDay; j >= 2; j--) {
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             String startTime = sdf.format(calendar.getTime());
             int mouth = calendar.get(Calendar.MONTH) + 1;
             int year = calendar.get(Calendar.YEAR);
-            String fileName = "D:/AutoReport/Auto_MFG_ME/自動化線线生產数据" + year + "年" + mouth + "月.xlsx";
+            fileName = "D:/自動化線线生產数据" + year + "年" + mouth + "月.xlsx";
             FileInputStream fs;
             int lie = calendar.get(Calendar.DAY_OF_MONTH) + 4;
             int hang = 12;
@@ -324,7 +325,7 @@ public class ToolsTest {
         }
         String[] sendTo = list1.toArray(new String[0]);
         //String[] sendTo = {"Junjia_Chen@phihong.com.tw"};
-        //emailService.Send(sendTo, "自动化报表", "", fileName);
+        emailService.Send(sendTo, "自动化报表", "", fileName);
         //System.out.println(fileName.substring(fileName.lastIndexOf("/") + 1) + "   " + Arrays.toString(sendTo));
     }
 }

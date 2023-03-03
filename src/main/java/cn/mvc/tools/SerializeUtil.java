@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 
 public class SerializeUtil {
     private static Logger logger = LoggerFactory.getLogger(SerializeUtil.class);
+
     public static byte[] serialize(Object object) {
         ObjectOutputStream oos = null;
         ByteArrayOutputStream baos = null;

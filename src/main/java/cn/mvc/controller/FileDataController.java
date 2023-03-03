@@ -232,6 +232,7 @@ public class FileDataController {
         URL u = new URL("file:///" + filePath);
         response.setContentType(u.openConnection().getContentType());
         response.setHeader("Content-Disposition", "inline;filename="
+        //response.setHeader("Content-Disposition", "attachment;filename="
                 + file.getName());
         OutputStream out = response.getOutputStream();
         while ((len = br.read(bs)) > 0) {

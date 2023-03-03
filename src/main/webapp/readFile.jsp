@@ -44,7 +44,7 @@
             </div>
             <div class="layui-inline" style="color:red;font-size: 20px">上传失败列表</div>
         </div>
-
+        <input type="submit" class="btn btn-primary" onclick="tan1()" value="登陆">
     <table class="layui-hide" id="test" lay-filter="test"></table>
 </div>
 <%-- 隐藏区域 start --%>
@@ -58,6 +58,8 @@
         var layer = layui.layer;
         var $ = layui.jquery;
         var table = layui.table;
+
+
 
         table.render({
             elem: '#test'
@@ -117,6 +119,15 @@
             }
         });
     });
+    function tan1(){
+        layer.open({
+            type: 2,
+            area: ['700px', '450px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: '<%=basePath%>pages/base-codeRule-add.html'
+        });
+    }
 </script>
 
 </body>

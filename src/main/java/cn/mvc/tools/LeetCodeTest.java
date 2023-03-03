@@ -1,6 +1,7 @@
 package cn.mvc.tools;
 
 import cn.mvc.pojo.Email;
+import org.apache.commons.lang.StringUtils;
 import sun.applet.Main;
 
 import java.util.*;
@@ -17,17 +18,20 @@ public class LeetCodeTest {
         /*Scanner in = new Scanner(System.in);
         int deepth = LeetCode.isValid(in.nextLine()) ;
         System.out.println(deepth) ;*/
+        String s = "";
+        if (StringUtils.isEmpty(s)){
+            System.out.println("sss");
+        }
         int[] a = {2,7,8,6,3,4,11,15};
         int[][] b = {{18,5,9},{5,9,7},{4,11,15}};
         int[][] c = {{0,1,0},{0,0,0},{0,0,0},{1,0,0},{0,0,0}};
         int[][] d = {{1,2,3},{3,5,1},{2,1,1},{4,6,2},{8,3,1}};
+        double aa =  555.63;
         System.out.println(Arrays.toString(LeetCode.runningSum(a)));
         System.out.println(LeetCode.maximumWealth(b));
         System.out.println(LeetCode.uniquePaths(4,5));
         System.out.println(LeetCode.uniquePathsWithObstacles(c));
         System.out.println(LeetCode.minPathSum1(d));
-
-
         List<String> list1 = new ArrayList<>();
         list1.add("123");
         list1.add("123");

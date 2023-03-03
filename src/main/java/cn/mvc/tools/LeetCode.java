@@ -134,6 +134,11 @@ public class LeetCode {
         return result[m-1][n-1];
     }
 
+    /**
+     *
+     * @param obstacleGrid
+     * @return
+     */
     public static int uniquePathsWithObstacles(int[][] obstacleGrid) {
         int m = obstacleGrid[0].length;
         int[] f = new int[m];
@@ -180,6 +185,11 @@ public class LeetCode {
         return dp[row - 1][col - 1];
     }
 
+    /**
+     * 求二维数组内最小和
+     * @param grid
+     * @return
+     */
     public static int minPathSum1(int[][] grid) {
         for(int i = 0; i < grid.length; i++) {
             for(int j = 0; j < grid[0].length; j++) {
@@ -191,6 +201,7 @@ public class LeetCode {
         }
         return grid[grid.length - 1][grid[0].length - 1];
     }
+
 }
 
 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>编码规则录入</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+</head>
+<body>
+    <!--form表单-->
+    <form class="layui-form layui-form-pane" lay-filter="filter">
+        <div class="layui-form-item">
+            <label class="layui-form-label">厂别</label>
+            <div class="layui-input-block">
+                <input type="text" name="factory" placeholder="厂别" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资产类型</label>
+            <div class="layui-input-block">
+                <input type="text"  name="type" placeholder="资产类型" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">规则前缀</label>
+            <div class="layui-input-block">
+                <input type="text" name="ruleHead" placeholder="规则前缀" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">流水码</label>
+            <div class="layui-input-block">
+                <input type="text" name="ruleBody" placeholder="流水码" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="sub">立即提交</button>
+            </div>
+        </div>
+    </form>
+    <div id="test1" class="demo-tree-more"></div>
+<!--js逻辑-->
+<script src="../lib/layui/layui.js"></script>
+<script>
+    layui.use(["element", "form", "laydate","tree"], function () {
+        let form = layui.form;
+        let laydate = layui.laydate;
+        let $ = layui.jquery;
+        let tree = layui.tree;
+
+        let treeData = [{
+            title: '江西' //一级菜单
+            ,children: [{
+                title: '南昌' //二级菜单
+                ,children: [{
+                    title: '高新区' //三级菜单
+                    //…… //以此类推，可无限层级
+                }]
+            }]
+        },{
+            title: '陕西' //一级菜单
+            ,children: [{
+                title: '西安' //二级菜单
+            }]
+        }];
+
+        //渲染
+        var inst1 = tree.render({
+            elem: '#test1'  //绑定元素
+            ,data:treeData
+            ,showCheckbox: true  //是否显示复选框
+            ,id: 'demoId1'
+            ,isJump: true //是否允许点击节点时弹出新窗口跳转
+            ,click: function(obj){
+                var data = obj.data;  //获取当前点击的节点数据
+                layer.msg('状态：'+ obj.state + '<br>节点数据：' + JSON.stringify(data));
+            }
+        });
+
+    })
+</script>
+</body>
+</html>
